@@ -11,21 +11,24 @@ for i in range(len(sentence_str)):
     str_rows="".join(sentence_str[i])
     sentence_list_each=str_rows.split(' ')
     sentence_list.append(sentence_list_each)
-    #print(sentence_list[-1])
+    #print(sentence_list)
     # print(type(str_rows))
 terminate_1=np.array([])
-terminate_2=[]
+# terminate_2=np.array([])
 # raw_paragraph=np.append(raw_paragraph, np.asarray(para))
 for i in range(len(sentence_list)):
     temp=sentence_list[i][0:-1]
     nptemp = np.asarray(temp)
-    #print(nptemp[-1])
+    #print(nptemp[-3])
     #print(nptemp.shape)
-    terminate_1=np.append(terminate_1, nptemp[-1])
-    # terminate_2.append(sentence_list[i][-2])
-    # terminate_2.append(sentence_list[i][-1])
+    try:
+        terminate_1=np.append(terminate_1, nptemp[-1])
+    except:
+        continue
+
 
 print(terminate_1)
-# print(terminate_2)
+#print(terminate_1.shape)
+#print(terminate_2)
 # for i in range(1, 10):
 #     print(str(i)+": \t"+sentence_list[i])
