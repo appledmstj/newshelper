@@ -1,5 +1,5 @@
 import numpy as np
-
+import csv
 
 with open('C:\\Users\\Eunseo\\Documents\\GitHub\\newshelper\\sentence_sample.txt', 'r') as f:
     sentence_str=f.readlines()
@@ -32,3 +32,10 @@ print(terminate_1)
 #print(terminate_2)
 # for i in range(1, 10):
 #     print(str(i)+": \t"+sentence_list[i])
+f = open("C:\\Users\\Eunseo\\Documents\\GitHub\\newshelper\\terminate_1.csv", 'w', newline='')
+
+for i in range(len(terminate_1)):
+    term_list = terminate_1.tolist()
+    writer = csv.writer(f)
+    writer.writerow(terminate_1)
+f.close()
