@@ -42,20 +42,34 @@ for i in range(len(terminate_1)):
 terminate_array = terminate_1.split(' ')
 #print(terminate_array)
 raw_dictionary=[]
-with open('C:\\Users\\Eunseo\\Documents\\GitHub\\newshelper\\ambiguity_dictionary.csv', 'r', encoding='utf8') as dictfile:
-    for line in dictfile.readlines():
-        raw_dictionary.append(line.split(','))
+with open('C:\\Users\\Eunseo\\Documents\\GitHub\\newshelper\\ambiguity_dict_with_reason.json', 'r', encoding='utf8') as dictfile:
+    # for line in dictfile.readlines():
+    #     raw_dictionary.append(line.split(','))
+    dict_file = json.load(dictfile)
+#print(dict_file)
 
 
 ambiguity_index=[]
-dictionary = raw_dictionary[0]
+dictionary =[]
+#= raw_dictionary[0]
+for key in dict_file[0].keys():
+    dictionary.append(key)
 #print(dictionary)
+ambiguity_sentence = {}
 for i in range(len(terminate_array)):
     if terminate_array[i] in dictionary:
+        ambiguity_sentence[sentence_list[i]] = dict_file[0][terminate_array[i]]
         ambiguity_index.append(i)
-ambiguity_sentence = []
+
+sentence_return = []
 for i in ambiguity_index:
-    ambiguity_sentence.append(sentence_list[i])
+    temp = {"sentence":"", "reason":""}
+    temp["sentence"]=sentence_list[i]
+    temp["reason"]=ambiguity_sentence[sentence_list[i]]
+    sentence_return.append(temp)
+
+print(sentence_return)
+
 #print(len(ambiguity_index), len(sentence_list))
 
 
@@ -65,7 +79,7 @@ outdict = dict()
 if(len(ambiguity_index)>0):
     outdict["ambiguity"] = True
     outdict["percentage"] = percentage
-    outdict["sentence"] = ambiguity_sentence
+    outdict["sentence"] = sentence_return
 else:
     outdict["ambiguity"] = False
     outdict["percentage"] = 0
